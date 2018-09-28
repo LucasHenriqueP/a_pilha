@@ -1,8 +1,14 @@
 import sys
 import string
+
+
 from copy import deepcopy
 from classes.machine import *
 from classes.estados import *
+from classes.pilha import *
+from classes.fita import *
+
+
 
 class bcolors:
     HEADER = '\033[95m'
@@ -22,31 +28,41 @@ def setup():
 
     f = open(arq, 'r')
     line = f.readline() #Linha 1 - Alfabeto de Entrada Fita
-    alfaFita = line
-    line = f.readline() #Linha 2 - Alfabeto de Entrada Pilha
-    alfaPilha = line
+    alfaFita = line.replace('\n', '')
+    alfaFita = alfaFita.replace(' ', '')
+    fita2 = fita(entrada, alfaFita)
 
-    line = f.readline() #Linha 3 - Simbolo que representa o Branco
+    line = f.readline() #Linha 2 - Alfabeto de Entrada Pilha
+    alfaPilha = line.replace('\n', '')
+
+
+    line = f.readline() #Linha 3 - Simbolo que representa o epsilon
     line = line.replace("\n", '')
-    branco = line
+    epsilon = line
 
     line = f.readline() #Linha 4 - Simbolo Inicial da Pilha
     simboloInicial = line.replace("\n", '')
+
+    pilha1 = pilha(simboloInicial, alfaPilha)
 
     line = f.readline() #Linha 5 - Conjunto de Estados
     line = line.replace("\n", "")
     estados = line.split(" ")
     estados.sort() #Ordena os Estados
 
+
     line = f.readline() #Linha 6 - Estado Inicial
     inicio = line.replace("\n", "")
 
-    line = f.readline() #Linha 7 - Estado Fnal
+    line = f.readline() #Linha 7 - Estado Final
     fim = line.replace("\n", "")
+    fim = fim.split(" ")
+    fim.sort()
 
     est = list()
     for i in range(len(estados)):
         est.append(Estado(str(estados[i])))
+
 
     for line in f:
         trans = line.replace("\n", '')
@@ -55,10 +71,11 @@ def setup():
         nextState = estados.index(trans[3]) #Trabalho com o Indice nao o Nome
         transicao = Transicao(trans[1], trans[2], trans[4], nextState)
         est[estados.index(pos)].addTransicao(transicao)
-
+    print(est[0].trans[0])
     inicio = estados.index(inicio)
-    fim = estados.index(fim)
-    m = machine(entrada,0 ,"B" , alfaFita, simboloInicial, 0, branco, alfaPilha, est, fim, inicio)
+    #fim = estados.index(fim)
+    exit(0)
+    #m = machine(entrada,0 ,"B" , alfaFita, simboloInicial, 0, branco, alfaPilha, est, fim, inicio)
 
     #----------------- Fim do Scraping --------------
 

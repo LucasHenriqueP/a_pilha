@@ -56,3 +56,4 @@ class Transicao:
 
     def getNextState(self):
         return self.nextState
+        

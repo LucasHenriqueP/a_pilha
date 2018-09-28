@@ -29,15 +29,7 @@ class pilha:
         rep = pilha(self.conteudo, self.alfabeto)
         return rep
 
+    def __str__(self):
+        return "Conteudo da pilha é %s\n alfabeto é %s" % (self.conteudo, self.alfabeto)   
+
  
-p = pilha('Z', 'AZ A AA')
-print(p.conteudo)
-p.insere("BA")
-print(p.conteudo)
-novo = p.replica()
-novo.insere("OI")
-print(novo.conteudo)
-p.insere("TESTE")
-print(p.conteudo)
-
-

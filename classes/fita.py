@@ -8,9 +8,6 @@ class fita:
         return self.conteudo[0]
 
     def removeElemento(self):
-        self.conteudo.remove(0)   
+        self.conteudo.pop(0)   
 
 
-f = fita("entrada", "ab")
-print(f.conteudo)
-print(f.alfabeto)  
