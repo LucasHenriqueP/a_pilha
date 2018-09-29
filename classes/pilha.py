@@ -7,13 +7,13 @@ class pilha:
                 args1 = args[1].split(' ')
                 self.alfabeto = args1
             else:
-                print("to no args", args[1])    
+                print("to no args", args[1])
                 self.alfabeto += (args[1])
             self.conteudo = list()
             self.conteudo += list(args[0])
         else:
             print("Erro ao criar pilha")
-            
+
 
     def insere(self, valor):
         v = list(valor)
@@ -29,7 +29,8 @@ class pilha:
         rep = pilha(self.conteudo, self.alfabeto)
         return rep
 
-    def __str__(self):
-        return "Conteudo da pilha é %s\n alfabeto é %s" % (self.conteudo, self.alfabeto)   
+    def getConteudo(self):
+        return self.conteudo
 
- 
+    def __str__(self):
+        return "Conteudo da pilha é %s\n alfabeto é %s" % (self.conteudo, self.alfabeto)

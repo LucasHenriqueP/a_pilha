@@ -10,27 +10,28 @@ class Estado:
         self.trans.append(trans)
 
     def isTransicao(self, c_fita, c_pilha, episolon):
+        indexes = list()
         for i in range(len(self.trans)):
 
             if self.trans[i].getCFita() == episolon:
                 if (self.trans[i].getCPilha() == c_pilha):
-                    return i #Para fazer Nao deterministico Esse I devera ser gravado em uma LISTA
+                    indexes.append(i) #Para fazer Nao deterministico Esse I devera ser gravado em uma LISTA
 
             if self.trans[i].getCPilha() == episolon:
                 if (self.trans[i].getCFita() == c_fita):
-                    return (i,1) #Para fazer Nao deterministico Esse I devera ser gravado em uma LISTA
+                    indexes.append(i) #Para fazer Nao deterministico Esse I devera ser gravado em uma LISTA
 
             if (self.trans[i].getCFita() == c_fita) and (self.trans[i].getCPilha() == c_pilha):
-                return (i,1) #Para fazer Nao deterministico Esse I devera ser gravado em uma LISTA
+                indexes.append(i) #Para fazer Nao deterministico Esse I devera ser gravado em uma LISTA
 
             if (self.trans[i].getCFita() == episolon) and (self.trans[i].getCPilha() == episolon):
                 if (self.trans[i].getTroca() == episolon):
                     return (i,0)
-                return i #Para fazer Nao deterministico Esse I devera ser gravado em uma LISTA
+                indexes.append(i) #Para fazer Nao deterministico Esse I devera ser gravado em uma LISTA
 
 
 
-        return -1,1
+        return indexes
 
 
 
@@ -56,4 +57,3 @@ class Transicao:
 
     def getNextState(self):
         return self.nextState
-        

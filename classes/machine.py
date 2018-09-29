@@ -9,7 +9,9 @@ class machine:
         self.fita = fita
         self.epson = epson
 
-    
+
+    def __str__(self):
+        return "\nNome do Estado Final: %s Index: %s\nEpisolon: %s"%(self.fim, self.getFim().getNome(), self.epson)
 
     def getEstadoAtual(self):
         return self.estados[self.atual]
@@ -17,11 +19,18 @@ class machine:
     def getFim(self):
         return self.estados[self.fim]
 
-'''
-    def verificarT(self, c_fitaAtual, c_pilhaAtual):
-        retorno, flag = self.getEstadoAtual().isTransicao(c_fitaAtual,c_pilhaAtual, self.getBrancoP())
+    def getFita(self):
+        return self.fita
 
-        if retorno == -1: #Caso Nao achar nenhuma trasição naquele estado
+    def getPilha(self):
+        return self.pilha
+
+
+    def verificarT(self, c_fitaAtual, c_pilhaAtual):
+
+        retorno = self.getEstadoAtual().isTransicao(c_fitaAtual,c_pilhaAtual, self.epson)
+
+        '''if retorno == -1: #Caso Nao achar nenhuma trasição naquele estado
             return -1
         if flag == 0: # achou(E,E,E) só manda avançar a cabeça da FITA
             self.setProxFita()
@@ -44,7 +53,8 @@ class machine:
         self.setProxFita()
 
         return 1
-    '''
+        '''
+
 
 class machineManager():
     machines = list()
@@ -58,4 +68,7 @@ class machineManager():
             self.MachineAtual += 1
 
     def getAtual(self):
-        return self.MachineAtual        
+        return self.MachineAtual
+
+    def getMachine(self):
+        return self.machines[self.MachineAtual]

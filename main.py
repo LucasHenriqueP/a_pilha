@@ -56,8 +56,8 @@ def setup():
 
     line = f.readline() #Linha 7 - Estado Final
     fim = line.replace("\n", "")
-    fim = fim.split(" ")
-    fim.sort()
+    #fim = fim.split(" ")
+    #fim.sort()
 
     est = list()
     for i in range(len(estados)):
@@ -72,42 +72,45 @@ def setup():
         transicao = Transicao(trans[1], trans[2], trans[4], nextState)
         est[estados.index(pos)].addTransicao(transicao)
     print(est[0].trans[0])
+    print(estados)
     inicio = estados.index(inicio)
-    #fim = estados.index(fim)
-    exit(0)
-    #m = machine(entrada,0 ,"B" , alfaFita, simboloInicial, 0, branco, alfaPilha, est, fim, inicio)
-
+    fim = estados.index(fim)
     #----------------- Fim do Scraping --------------
 
-    run(m)
+    m = machine(pilha1, fita2, est, fim, inicio, epsilon)
+    mManager = machineManager()
+    mManager.addMachine(m)
+    print(mManager.machines[0])
 
-def run2(machine):
+    run(mManager)
 
-    while (machine.getEstadoAtual().getNome() != machine.getFim().getNome() or (machine.getPosFita() != machine.getBrancoF())):
-        print('Pilha %s '%machine.getPilha())
-        print('Estado Atual: %s'%machine.getEstadoAtual().getNome())
+def run(mManager):
 
-        if((machine.getPosFita() != machine.getBrancoF()) or machine.isPilhaVazia() == -1):
+    machine = mManager.getMachine()
 
-            if (machine.verificarT(machine.getPosFita(),machine.getPosPilha()) != -1):
-                print('.')
-            else:
-                print("NAO ACHOU TRANSIÇÃO")
-                exit(1)
+    run = 1
+    fimFita = 0
+    fimPilha = 0
+    fimEstado = 0
 
-        #print('Pilha %s '%machine.getPilha())
-        #print('Estado Atual: %s'%machine.getEstadoAtual().getNome())
+    while run:
+#---------------- Condições de Parada
+        if machine.getFim().getNome() == machine.getEstadoAtual().getNome():
+            fimEstado = 1
+        if len(machine.getFita().getConteudo()) == 0 :
+            fimFita = 1
+        if len(machine.getPilha().getConteudo()) == 0:
+            fimPilha = 1
 
-        #if machine.getEstadoAtual().getNome() == machine.getFim().getNome() and machine.isPilhaVazia() == -1:
-        #    print('ACHOU ESTADO FINAL [%s]'%machine.getEstadoAtual().getNome())
-        #    exit(1)
+        if fimFita == 1:
+            if fimEstado == 1 or fimPilha == 1 :
+                run = 0
+#---------------- Fim das Condições de Parada
 
-        #if((machine.getPosFita() == machine.getBrancoF()) and machine.isPilhaVazia() == -1):
-        #    print('CHEGOU AO FIM DA FITA')
-        #    exit(1)
+        transRetorno = machine.verificarT(machine.getFita().getElemento(),machine.getPilha().getElemento())
+        print('Retorno '%transRetorno)
 
-def run(machine):
-    while ( (machine.getPosFita() != machine.getBrancoF()) and ((machine.getEstadoAtual().getNome() != machine.getFim().getNome()) or (machine.isPilhaVazia() == -1) ) ):
+    '''while ( (machine.getPosFita() != machine.getBrancoF()) and ((machine.getEstadoAtual().getNome() != machine.getFim().getNome()) or (machine.isPilhaVazia() == -1) ) ):
         print('-FITA [%s] '%machine.getPosFita())
         print('-Pilha %s '%machine.getPilha())
         print('-Estado Atual: %s'%machine.getEstadoAtual().getNome())
@@ -135,7 +138,7 @@ def run(machine):
         print(bcolors.FAIL+'\nNÃO ACHOU TRANSAÇÃO'+bcolors.ENDC)
         exit(1)
 
-
+'''
 
 def main():
     setup();

@@ -8,6 +8,8 @@ class fita:
         return self.conteudo[0]
 
     def removeElemento(self):
-        self.conteudo.pop(0)   
+        if len(self.conteudo) != 0:
+            self.conteudo.pop(0)
 
-
+    def getConteudo(self):
+        return self.conteudo
