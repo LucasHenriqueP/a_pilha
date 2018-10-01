@@ -33,4 +33,4 @@ class pilha:
         return self.conteudo
 
     def __str__(self):
-        return "Conteudo da pilha é %s\n alfabeto é %s" % (self.conteudo, self.alfabeto)
+        return "Conteudo da pilha é %s" % (self.conteudo)

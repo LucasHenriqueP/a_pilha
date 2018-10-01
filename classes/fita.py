@@ -5,7 +5,8 @@ class fita:
         self.alfabeto = list(alfabeto)
 
     def getElemento(self):
-        return self.conteudo[0]
+        if len(self.conteudo) != 0:
+            return self.conteudo[0]
 
     def removeElemento(self):
         if len(self.conteudo) != 0:
@@ -13,3 +14,6 @@ class fita:
 
     def getConteudo(self):
         return self.conteudo
+
+    def __str__(self):
+        return "Conteudo: %s"%(self.getConteudo())

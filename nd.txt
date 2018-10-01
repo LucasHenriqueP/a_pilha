@@ -1,0 +1,22 @@
+a b
+Z a aZ aa b bZ bb
+E
+Z
+q0 q1 q2 q3
+q0
+q2
+q0 E a q1 E
+q0 a Z q0 aZ
+q0 a a q0 aa
+q0 a b q0 E
+q0 b Z q3 bZ
+q0 b a q3 E
+q0 b b q3 bb
+q1 E Z q2 Z
+q1 E a q1 E
+q3 a Z q3 aZ
+q3 a a q3 aa
+q3 a b q3 E
+q3 b Z q0 bZ
+q3 b a q0 E
+q3 b b q0 bb
