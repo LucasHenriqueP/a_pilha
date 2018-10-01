@@ -8,8 +8,6 @@ from classes.estados import *
 from classes.pilha import *
 from classes.fita import *
 
-
-
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -71,8 +69,8 @@ def setup():
         nextState = estados.index(trans[3]) #Trabalho com o Indice nao o Nome
         transicao = Transicao(trans[1], trans[2], trans[4], nextState)
         est[estados.index(pos)].addTransicao(transicao)
-    print(est[0].trans[0])
-    print(estados)
+    #print(est[0].trans[0])
+    #print(estados)
     inicio = estados.index(inicio)
     fim = estados.index(fim)
     #----------------- Fim do Scraping --------------
@@ -80,20 +78,27 @@ def setup():
     m = machine(pilha1, fita2, est, fim, inicio, epsilon)
     mManager = machineManager()
     mManager.addMachine(m)
-    print(mManager.machines[0])
+    #print(mManager.machines[0])
 
     run(mManager)
 
 def run(mManager):
 
-    machine = mManager.getMachine()
+#----- Variaveis para controlar o Fim da Maquina
+    fimFita = 0     # 0 não chegou fim da Fita, se 1 Chegou ao fim da Fita
+    fimPilha = 0    # 0 não chegou ao fim da Pilha, se 1 Chegou ao Fim da Pilha
+    fimEstado = 0   # 0 não chegou ao um Estado Final, 1 Chegou a um Estado Final
 
-    run = 1
-    fimFita = 0
-    fimPilha = 0
-    fimEstado = 0
+    while True:
+        machine = mManager.getMachine()
+        #--------------- Debug Visual
+        print("Config Antes da Maquina Começar")
+        print(mManager) #Maquina Atual no manager e Tamanho do Manager
+        print(mManager.getMachine()) #Estado Atual da MaquinaAtual no Manager
+        print(mManager.getMachine().getFita()) #Fita completa da Maquina Atual no Manager
+        print(mManager.getMachine().getPilha()) #Pilha Completa da Maquina Atual no Manager
+        print('---------------------------------------------------')
 
-    while run:
 #---------------- Condições de Parada
         if machine.getFim().getNome() == machine.getEstadoAtual().getNome():
             fimEstado = 1
@@ -104,41 +109,37 @@ def run(mManager):
 
         if fimFita == 1:
             if fimEstado == 1 or fimPilha == 1 :
-                run = 0
+                #run = 0
+                break
 #---------------- Fim das Condições de Parada
 
-        transRetorno = machine.verificarT(machine.getFita().getElemento(),machine.getPilha().getElemento())
-        print('Retorno '%transRetorno)
+#-------------- Verifica se Existe Transição no Estado Atual
+        transRetorno = machine.verificarT(machine.getFita().getElemento(),machine.getPilha().getElemento(),mManager)
 
-    '''while ( (machine.getPosFita() != machine.getBrancoF()) and ((machine.getEstadoAtual().getNome() != machine.getFim().getNome()) or (machine.isPilhaVazia() == -1) ) ):
-        print('-FITA [%s] '%machine.getPosFita())
-        print('-Pilha %s '%machine.getPilha())
-        print('-Estado Atual: %s'%machine.getEstadoAtual().getNome())
-        print('\n')
-        existeTrans = machine.verificarT(machine.getPosFita(),machine.getPosPilha())
+#--------------- Se não existe trasição:
+        print('Retorno [%d] - Tam Machina [%d]'%(transRetorno,len(mManager.machines)))
 
-    print('--FITA [%s] '%machine.getPosFita())
-    print('--Pilha %s '%machine.getPilha())
-    print('--Estado Atual: %s'%machine.getEstadoAtual().getNome())
+        if transRetorno == -1:
+            if len(mManager.machines) > 0:      #Verifica se o Manager tem mais maquinas
+                #mManager.nextMachine()          #se sim Avança
+                mManager.removeMachine()          #se sim Avança
+            else:
+                print(bcolors.FAIL+"Não achou Transição "+bcolors.ENDC)    #se não Aborta
+                exit(0)
 
-    if machine.getEstadoAtual().getNome() == machine.getFim().getNome() and (machine.getPosFita() == machine.getBrancoF()):
-        print(bcolors.OKGREEN+'\nACHOU ESTADO FINAL [%s]'%machine.getEstadoAtual().getNome()+bcolors.ENDC)
-        exit(1)
+#--------------- Debug Visual
+        print(mManager) #Maquina Atual no manager e Tamanho do Manager
+        print(mManager.getMachine()) #Estado Atual da MaquinaAtual no Manager
+        print(mManager.getMachine().getFita()) #Fita completa da Maquina Atual no Manager
+        print(mManager.getMachine().getPilha()) #Pilha Completa da Maquina Atual no Manager
 
-    print('\n\n--aab : %d '%machine.isPilhaVazia())
-    print('--TOPO PILHA : %s '%machine.getPosPilha())
-    print('--PILHA INTEIRA: %s '%machine.getPilha())
-    print('--PILHA TAM: %d '%machine.pos_pilha)
+        input(bcolors.WARNING+'Pressione Qualquer Tecla para avançar!'+bcolors.ENDC)
 
-    if(((machine.getPosFita() == machine.getBrancoF()) and machine.isPilhaVazia() == -1)):
-        print(bcolors.OKGREEN+'\nCHEGOU AO FIM DA FITA'+bcolors.ENDC)
-        exit(1)
-
-    elif machine.isPilhaVazia() == 1:
-        print(bcolors.FAIL+'\nNÃO ACHOU TRANSAÇÃO'+bcolors.ENDC)
-        exit(1)
-
-'''
+#--------------- Verificador para saber pelo o que a Maquina Terminou
+    if fimPilha == 1:
+        print(bcolors.OKGREEN+"Termino por Fim da Fita e Fim da Pilha"+bcolors.ENDC)
+    elif fimEstado == 1:
+        print(bcolors.OKGREEN+"Termino por Fim da Fita e Fim por Estado"+bcolors.ENDC)
 
 def main():
     setup();
