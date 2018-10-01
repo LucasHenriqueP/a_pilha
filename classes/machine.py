@@ -11,7 +11,7 @@ class machine:
 
 
     def __str__(self):
-        return "\nEstado Atual: %s"%(self.getEstadoAtual())
+        return "Estado Atual: %s"%(self.getEstadoAtual())
 
     def getEstadoAtual(self):
         return self.estados[self.atual]
@@ -29,6 +29,7 @@ class machine:
     def verificarT(self, c_fitaAtual, c_pilhaAtual, mManager):
 #------------- Irá Verificar se existe Transição no Estado Atual
         retorno = self.getEstadoAtual().isTransicao(c_fitaAtual,c_pilhaAtual, self.epson, mManager)
+
 #------------- Retorno
         if retorno == -1: #Se Não existir
             return -1 # irá retornar 0
@@ -56,4 +57,4 @@ class machineManager():
         self.machines.pop(0)
 
     def __str__(self):
-        return "---Maquina Atual [%d]\nTamanho [%d]"%(self.getAtual(),len(self.machines))
+        return "\n ---Manager -> Maquina Atual [%d]"%(self.getAtual())

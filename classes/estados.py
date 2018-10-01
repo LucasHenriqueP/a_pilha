@@ -33,18 +33,19 @@ class Estado:
 
         '''
 
-        retorno = -1
+        retorno = -1 #Acaso nao entrar nas condições abaixo irá retornar -1(Não achou nenhuma transição naquele estado)
+
         for i in range(len(self.trans)):
 
             if self.trans[i].getCFita() == episolon:
                 if (self.trans[i].getCPilha() == c_pilha):
                     if (self.trans[i].getTroca() == episolon):
-                        #E,x,E - NextPilha(), Pop(), NextState()
+                        #E,x,E - NextCabecaFita(), Pop(), NextState()
 
                         pilha = deepcopy(mManager.getMachine().getPilha())
                         pilha.removeElemento() # Pop()
                         fita = deepcopy(mManager.getMachine().getFita())
-                        fita.removeElemento() #NextPilha()
+                        fita.removeElemento() #NextCabecaFita()
                         inicio = self.trans[i].getNextState() #NextState()
 
                         m = machine(pilha, fita, mManager.getMachine().estados, mManager.getMachine().fim, inicio, episolon)
@@ -52,12 +53,12 @@ class Estado:
 
                         retorno = 1
                     else:
-                        #E,X,X - NextPilha(), Push(x), NextState()
+                        #E,X,X - NextCabecaFita(), Push(x), NextState()
                         pilha = deepcopy(mManager.getMachine().getPilha())
                         x = self.verificaInicialPilha(self.trans[i].getTroca())
                         pilha.insere(x) # push(x)
                         fita = deepcopy(mManager.getMachine().getFita())
-                        fita.removeElemento() #NextPilha()
+                        fita.removeElemento() #NextCabecaFita()
                         inicio = self.trans[i].getNextState() #NextState()
 
                         m = machine(pilha, fita, mManager.getMachine().estados, mManager.getMachine().fim, inicio, episolon)
@@ -71,22 +72,22 @@ class Estado:
 
                         pilha = deepcopy(mManager.getMachine().getPilha())
                         fita = deepcopy(mManager.getMachine().getFita())
-                        fita.removeElemento() #NextPilha()
+                        fita.removeElemento() #NextCabecaFita()
                         inicio = self.trans[i].getNextState() #NextState()
 
                         m = machine(pilha, fita, mManager.getMachine().estados, mManager.getMachine().fim, inicio, episolon)
                         mManager.addMachine(m)
 
-                        #x,E,E - NextPilha(), NextState()
+                        #x,E,E - NextCabecaFita(), NextState()
                         retorno = 1
                     else:
-                        #x,E,X - NextPilha(), Push(x), NextState()
+                        #x,E,X - NextCabecaFita(), Push(x), NextState()
 
                         pilha = deepcopy(mManager.getMachine().getPilha())
                         x = self.verificaInicialPilha(self.trans[i].getTroca())
                         pilha.insere(x) # push(x)
                         fita = deepcopy(mManager.getMachine().getFita())
-                        fita.removeElemento() #NextPilha()
+                        fita.removeElemento() #NextCabecaFita()
                         inicio = self.trans[i].getNextState() #NextState()
 
                         m = machine(pilha, fita, mManager.getMachine().estados, mManager.getMachine().fim, inicio, episolon)
@@ -96,24 +97,24 @@ class Estado:
 
             if (self.trans[i].getCFita() == c_fita) and (self.trans[i].getCPilha() == c_pilha):
                     if (self.trans[i].getTroca() == episolon):
-                        # x,x,E - NextPilha(), Pop(), NextState()
+                        # x,x,E - NextCabecaFita(), Pop(), NextState()
 
                         pilha = deepcopy(mManager.getMachine().getPilha())
                         pilha.removeElemento() # Pop()
                         fita = deepcopy(mManager.getMachine().getFita())
-                        fita.removeElemento() #NextPilha()
+                        fita.removeElemento() #NextCabecaFita()
                         inicio = self.trans[i].getNextState() #NextState()
 
                         m = machine(pilha, fita, mManager.getMachine().estados, mManager.getMachine().fim, inicio, episolon)
                         mManager.addMachine(m)
                         retorno = 1
                     else:
-                        #x,x,x - NextPilha(), Push(x), NextState()
+                        #x,x,x - NextCabecaFita(), Push(x), NextState()
                         pilha = deepcopy(mManager.getMachine().getPilha())
                         x = self.verificaInicialPilha(self.trans[i].getTroca())
                         pilha.insere(x) # push(x)
                         fita = deepcopy(mManager.getMachine().getFita())
-                        fita.removeElemento() #NextPilha()
+                        fita.removeElemento() #NextCabecaFita()
                         inicio = self.trans[i].getNextState() #NextState()
 
                         m = machine(pilha, fita, mManager.getMachine().estados, mManager.getMachine().fim, inicio, episolon)
@@ -143,7 +144,7 @@ class Estado:
                         #E,E,x - Push(x),NextState()
                         retorno = 1
 
-        mManager.removeMachine()
+        mManager.removeMachine() 
         return retorno
 
 

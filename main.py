@@ -1,8 +1,6 @@
 import sys
 import string
 
-
-from copy import deepcopy
 from classes.machine import *
 from classes.estados import *
 from classes.pilha import *
@@ -121,7 +119,7 @@ def run(mManager):
                 exit(0)
 
 #--------------- Debug Visual
-        print(mManager) #Maquina Atual no manager e Tamanho do Manager
+        print(bcolors.BOLD,mManager,bcolors.ENDC) #Maquina Atual no manager e Tamanho do Manager
         print(mManager.getMachine()) #Estado Atual da MaquinaAtual no Manager
         print(mManager.getMachine().getFita()) #Fita completa da Maquina Atual no Manager
         print(mManager.getMachine().getPilha()) #Pilha Completa da Maquina Atual no Manager
