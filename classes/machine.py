@@ -27,11 +27,12 @@ class machine:
 
 
     def verificarT(self, c_fitaAtual, c_pilhaAtual, mManager):
-
+#------------- Irá Verificar se existe Transição no Estado Atual
         retorno = self.getEstadoAtual().isTransicao(c_fitaAtual,c_pilhaAtual, self.epson, mManager)
-        if retorno == -1:
-            return -1
-        return 1
+#------------- Retorno
+        if retorno == -1: #Se Não existir
+            return -1 # irá retornar 0
+        return 1 # se Existir Irá Retornar 1
 
 
 class machineManager():

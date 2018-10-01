@@ -16,7 +16,6 @@ class Estado:
         self.trans.append(trans)
 
     def verificaInicialPilha(self, atual):
-
         l = []
         for i in atual:
             if i not in l:
@@ -26,6 +25,14 @@ class Estado:
         return atual
 
     def isTransicao(self, c_fita, c_pilha, episolon, mManager):
+
+        '''
+
+        E dizia Jesus: Pai, perdoa-lhes, porque não sabem o que fazem.
+                                                                        Lucas 23:34
+
+        '''
+
         retorno = -1
         for i in range(len(self.trans)):
 
@@ -135,9 +142,7 @@ class Estado:
                         mManager.addMachine(m)
                         #E,E,x - Push(x),NextState()
                         retorno = 1
-            print('Proximo ESTADO: %d'%(self.trans[i].getNextState()))
 
-        #mManager.nextMachine()
         mManager.removeMachine()
         return retorno
 
