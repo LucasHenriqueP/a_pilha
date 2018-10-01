@@ -1,6 +1,7 @@
-# :computer:Maquina de Turing de Pilha- Linguagens Formais, Automatos e Computabilidade 
+# :computer:Autômato com Pilha- Linguagens Formais, Automatos e Computabilidade 
 
-Projeto de implementação de uma [Maquina de Turing de Pilha](https://en.wikipedia.org/wiki/Turing_machine) para a disciplina de Linguagens Formais, Automatos e Computabilidade.
+Projeto de implementação de um [
+Autômato com pilha](https://en.wikipedia.org/wiki/Pushdown_automaton) para a disciplina de Linguagens Formais, Automatos e Computabilidade.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ## Como Executar 🚀
