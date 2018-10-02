@@ -6,6 +6,8 @@ from classes.estados import *
 from classes.pilha import *
 from classes.fita import *
 
+c = 0
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -92,6 +94,16 @@ def run(mManager):
     print('---------------------------------------------------')
 
     while True:
+        
+        global c
+        c = c+1
+        if c > 1000 :
+            tmp = input(bcolors.WARNING+'-Já se foram 1000 Interações, Deseja continuar? (y/n)'+bcolors.ENDC)
+            if tmp == 'y':
+                c = 0
+            if tmp == 'n':
+                break
+
         machine = mManager.getMachine() #Pega a Maquina Atual na Lista de Maquinas do Gerenciador de Maquinas
 
 #---------------- Condições de Parada
@@ -124,7 +136,7 @@ def run(mManager):
         print(mManager.getMachine().getFita()) #Fita completa da Maquina Atual no Manager
         print(mManager.getMachine().getPilha()) #Pilha Completa da Maquina Atual no Manager
 
-        input(bcolors.WARNING+'Pressione Qualquer Tecla para avançar!'+bcolors.ENDC)
+
 
 #--------------- Verificador para saber pelo o que a Maquina Terminou
     if fimPilha == 1:
