@@ -15,11 +15,11 @@ class Estado:
     def addTransicao(self, trans):
         self.trans.append(trans)
 
-    def verificaInicialPilha(self, atual):
+    def verificaInicialPilha(self, atual, pilha):
         l = []
         for i in atual:
             if i not in l:
-                if i != "Z":
+                if i != pilha.getBranco():
                     l.append(i)
         atual = l
         return atual
@@ -55,7 +55,7 @@ class Estado:
                     else:
                         #E,X,X - NextCabecaFita(), Push(x), NextState()
                         pilha = deepcopy(mManager.getMachine().getPilha())
-                        x = self.verificaInicialPilha(self.trans[i].getTroca())
+                        x = self.verificaInicialPilha(self.trans[i].getTroca(), pilha)
                         pilha.insere(x) # push(x)
                         fita = deepcopy(mManager.getMachine().getFita())
                         fita.removeElemento() #NextCabecaFita()
@@ -84,7 +84,7 @@ class Estado:
                         #x,E,X - NextCabecaFita(), Push(x), NextState()
 
                         pilha = deepcopy(mManager.getMachine().getPilha())
-                        x = self.verificaInicialPilha(self.trans[i].getTroca())
+                        x = self.verificaInicialPilha(self.trans[i].getTroca(), pilha)
                         pilha.insere(x) # push(x)
                         fita = deepcopy(mManager.getMachine().getFita())
                         fita.removeElemento() #NextCabecaFita()
@@ -111,7 +111,7 @@ class Estado:
                     else:
                         #x,x,x - NextCabecaFita(), Push(x), NextState()
                         pilha = deepcopy(mManager.getMachine().getPilha())
-                        x = self.verificaInicialPilha(self.trans[i].getTroca())
+                        x = self.verificaInicialPilha(self.trans[i].getTroca(), pilha)
                         pilha.insere(x) # push(x)
                         fita = deepcopy(mManager.getMachine().getFita())
                         fita.removeElemento() #NextCabecaFita()
@@ -133,7 +133,7 @@ class Estado:
                         retorno = 1
                     else:
                         pilha = deepcopy(mManager.getMachine().getPilha())
-                        x = self.verificaInicialPilha(self.trans[i].getTroca())
+                        x = self.verificaInicialPilha(self.trans[i].getTroca(), pilha)
                         pilha.insere(x) # push(x)
                         fita = deepcopy(mManager.getMachine().getFita())
                         inicio = self.trans[i].getNextState() #NextState()
@@ -144,7 +144,7 @@ class Estado:
                         #E,E,x - Push(x),NextState()
                         retorno = 1
 
-        mManager.removeMachine() 
+        mManager.removeMachine()
         return retorno
 
 

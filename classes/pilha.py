@@ -1,5 +1,6 @@
 class pilha:
     alfabeto = list()
+    branco = ""
     def __init__(self, *args):
         if(len(args) == 2):
             conteudo = list()
@@ -18,6 +19,12 @@ class pilha:
     def insere(self, valor):
         v = list(valor)
         self.conteudo =  v + self.conteudo
+
+    def setBranco(self, s):
+        self.branco = s
+
+    def getBranco(self):
+        return self.branco
 
     def getElemento(self):
         return self.conteudo[0]

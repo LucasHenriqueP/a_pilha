@@ -42,6 +42,7 @@ def setup():
     simboloInicial = line.replace("\n", '')
 
     pilha1 = pilha(simboloInicial, alfaPilha)
+    pilha1.setBranco(simboloInicial)
 
     line = f.readline() #Linha 5 - Conjunto de Estados
     line = line.replace("\n", "")
@@ -80,7 +81,7 @@ def setup():
 
 def run(mManager):
 
-#----- Variaveis para controlar o Fim da Maquina de Pilha
+    #----- Variaveis para controlar o Fim da Maquina de Pilha
     fimFita = 0     # 0 não chegou fim da Fita, se 1 Chegou ao fim da Fita
     fimPilha = 0    # 0 não chegou ao fim da Pilha, se 1 Chegou ao Fim da Pilha
     fimEstado = 0   # 0 não chegou ao um Estado Final, 1 Chegou a um Estado Final
@@ -94,7 +95,7 @@ def run(mManager):
     print('---------------------------------------------------')
 
     while True:
-        
+
         global c
         c = c+1
         if c > 1000 :
